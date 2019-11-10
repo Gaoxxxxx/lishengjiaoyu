@@ -1,6 +1,10 @@
 <template>
   <div class="header">
     <img src="../image/lsjy.png" alt="" class='logo'>
+    <div class='catagelog'>
+      <span>首页|</span>
+      <span>联系我们</span>
+    </div>
   </div>
 </template>
 <script>
@@ -15,6 +19,9 @@ export default {};
     .logo{
       width: 200px;
       height: 80px;
+    }
+    .catagelog{
+      float:right;
     }
   }
 </style>
