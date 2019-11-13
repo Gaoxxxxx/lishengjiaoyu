@@ -1,7 +1,7 @@
 <template>
     <div id = "RotationChart">
         <div id="item"  v-for="(obj,index) in imgList " :key='index' v-show="index == nowIndex" >
-            <img :src="obj.src" alt="这是一张图片" @click="Mask(index)">
+            <img :src="obj.img" alt="这是一张图片" @click="Mask(index)">
             
         </div>
         <ul id="page">
@@ -11,29 +11,13 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default{
+    
     data(){
         return{
             // 这里加载图片的路径必须使用require引入，方便webpack打包。
-            imgList:[
-                {
-                    src:require("../image/1.jpg"),
-                    
-                   
-                },
-                {
-                    src:require('../image/2.jpg'),
-                    
-                },
-                {
-                    src:require('../image/3.jpg'),
-                    
-                },
-                {
-                    src:require('../image/4.jpg'),
-                    
-                }
-            ],
+            imgList:[],
             nowIndex:1,
             timer:null,
             isShow:false,
@@ -42,6 +26,7 @@ export default{
 
     },
     created(){
+        this.getImgList(this.imgList.length);
         this.play()  
     },
     
@@ -63,7 +48,15 @@ export default{
             this.timer = null;
             this.play();
         },
-        
+        getImgList(num){
+            axios.get("http://www.douban.com")
+            .then((res)=>{
+                this.imgList=res.data.list;
+                // console.log(res.data.list.img)
+            }).catch((err)=>{
+                console.log(err);
+            })
+        }
         
     },
     computed:{
@@ -82,7 +75,7 @@ ul{
 }
 img{
     width: 100%;
-    height: 100%;
+    height: 500px;
 }
 #RotationChart{
     margin-top: 20px;
