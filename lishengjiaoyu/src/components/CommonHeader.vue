@@ -1,27 +1,31 @@
 <template>
-  <div class="header">
-    <img src="../image/lsjy.png" alt="" class='logo'>
-    <div class='catagelog'>
-      <span>首页|</span>
-      <span>联系我们</span>
-    </div>
-  </div>
+  <div>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <!-- <img class='logo' src="../image/logo-2.png" alt=""> -->
+    <!-- <img class='logo2' src="../image/lsjy1.png" alt="" href="/"> -->
+    <b-navbar-brand href="/">
+    <img class='logo2' src="../image/lsjy1.png" alt="" href="/">
+    </b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item href="/" >首页</b-nav-item>
+        <b-nav-item href="#" >联系我们</b-nav-item> 
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 </template>
-<script>
-export default {};
-</script>
 <style lang="scss">
-  .header{
-    display: block;
-    width: 100%;
-    height:80px;
-    box-shadow: 0px 1px 0px #888888;
-    .logo{
-      width: 200px;
-      height: 80px;
+    .logo2{
+    height: 70px;
     }
-    .catagelog{
-      float:right;
+    .fr{
+      float: right;
     }
-  }
 </style>

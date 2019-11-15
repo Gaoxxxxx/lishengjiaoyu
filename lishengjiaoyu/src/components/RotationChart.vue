@@ -1,111 +1,62 @@
 <template>
-    <div id = "RotationChart">
-        <div id="item"  v-for="(obj,index) in imgList " :key='index' v-show="index == nowIndex" >
-            <img :src="obj.img" alt="这是一张图片" @click="Mask(index)">
-            
-        </div>
-        <ul id="page">
-            <li v-for="(obj,index) in imgList" :key="index"  :class="{seleted:index === nowIndex}" @click="jump(index)">{{index+1}}</li>
-        </ul>
-        
-    </div>
+  <div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="400"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <!-- Text slides with image -->
+      <b-carousel-slide
+      v-for='item in imgs' 
+      :key='item.id'
+      :img-src = item.img
+      >
+      </b-carousel-slide>
+    </b-carousel>
+  </div>
 </template>
+
 <script>
 import axios from 'axios';
-export default{
-    
-    data(){
-        return{
-            // 这里加载图片的路径必须使用require引入，方便webpack打包。
-            imgList:[],
-            nowIndex:1,
-            timer:null,
-            isShow:false,
-            
-        }
-
+  export default {
+    data() {
+      return {
+        slide: 0,
+        sliding: null,
+        imgs:[
+          {id:1,img:'https://picsum.photos/1024/400/?image=52'},
+          {id:2,img:'https://picsum.photos/1024/400/?image=54'},
+          {id:3,img:'https://picsum.photos/1024/400/?image=54'},
+        ]
+      }
     },
     created(){
-        this.getImgList(this.imgList.length);
-        this.play()  
+        this.getImage();
     },
-    
-    methods:{
-        play(){  //自动轮播
-            if(this.timer == null){
-                this.timer = setInterval(()=>{
-                this.nowIndex++;
-                if(this.nowIndex == this.imgList.length){
-                    this.nowIndex = 0;
-                }
-            },3000)
-            }
-            
-        },
-        jump(index){
-            clearInterval(this.timer);
-            this.nowIndex = index;
-            this.timer = null;
-            this.play();
-        },
-        getImgList(num){
-            axios.get("http://www.douban.com")
+    methods: {
+      onSlideStart(slide) {
+        this.sliding = true
+      },
+      onSlideEnd(slide) {
+        this.sliding = false
+      },
+      getImage(){
+           axios.get("http://www.douban.com")
             .then((res)=>{
-                this.imgList=res.data.list;
-                // console.log(res.data.list.img)
+                // this.imgList=res.data.list;
+                console.log(res.data)
             }).catch((err)=>{
                 console.log(err);
             })
-        }
-        
-    },
-    computed:{
-        
+      }
     }
-}
+  }
 </script>
-
-<style scoped>
-*{
-    margin: 0;
-    padding: 0;
-}
-ul{
-    list-style: none;
-}
-img{
-    width: 100%;
-    height: 500px;
-}
-#RotationChart{
-    margin-top: 20px;
-    /* 图片居中 */
-    text-align: center;
-    position: relative;
-}
-
-#page{
-    list-style: none;
-    display: block;
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
-}
-#page li{
-    height: 20px;
-    width: 20px;
-    float: left;
-    margin-right: 5px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius:5px;
-    text-align: center;
-    line-height: 20px;
-    font-size: 80%;
-    font-weight: 700;
-    cursor: pointer;
-
-}
-#page .seleted{
-    background: #f00;
-}
-</style>

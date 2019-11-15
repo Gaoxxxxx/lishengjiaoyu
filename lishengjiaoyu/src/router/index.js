@@ -1,15 +1,27 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import CommonHeader from '../components/CommonHeader.vue';
+import HomePage from '../views/HomePage.vue';
+import ArticleList from '../views/ArticleList.vue';
+import ArticleDetaile from '../views/ArticleDetaile.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: CommonHeader,
-  // },
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage,
+  },
+  {
+    path: '/articlelist',
+    name: 'articlelist',
+    component: ArticleList,
+  },
+  {
+    path: '/articledetaile',
+    name: 'articledetaile',
+    component: ArticleDetaile,
+  },
   // {
   //   path: '/about',
   //   name: 'about',

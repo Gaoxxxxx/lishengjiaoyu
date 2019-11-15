@@ -1,17 +1,18 @@
 <template>
   <div id="app">
     <common-header></common-header>
-    <rotation-chart></rotation-chart>
+    <router-view></router-view>
+     <common-footer></common-footer>
   </div>
 </template>
 <script>
 import CommonHeader from './components/CommonHeader.vue';
-import RotationChart from './components/RotationChart'
+import CommonFooter from './components/CommonFooter';
 
 export default {
   components: {
     CommonHeader,
-    RotationChart
+    CommonFooter
   },
 };
 </script>
